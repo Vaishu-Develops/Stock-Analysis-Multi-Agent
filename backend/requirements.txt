@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+redis
+yfinance
+pandas
+ta
+pyautogen
+python-dotenv
+requests
+fpdf2
