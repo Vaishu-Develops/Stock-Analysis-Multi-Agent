@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base Styles */
+@layer base {
+    * {
+        @apply border-gray-800;
+    }
+
+    body {
+        @apply bg-cyber-black text-gray-100 antialiased;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        min-height: 100vh;
+        background-image:
+            radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.15), transparent 40%),
+            radial-gradient(circle at 0% 100%, rgba(6, 182, 212, 0.1), transparent 40%);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-semibold tracking-tight text-white;
+    }
+
+    code,
+    pre {
+        font-family: 'JetBrains Mono', monospace;
+    }
+}
+
+/* Cyber Component Styles */
+@layer components {
+    .glass-card {
+        @apply bg-cyber-slate/50 backdrop-blur-xl border border-white/10 shadow-glass;
+    }
+
+    .glass-card-premium {
+        @apply bg-cyber-gray/80 backdrop-blur-2xl border border-white/10 shadow-glass;
+    }
+
+    .text-neon {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-cyber-neon-purple to-cyber-neon-cyan;
+    }
+
+    .btn-cyber {
+        @apply px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-cyber-purple to-cyber-cyan;
+        @apply shadow-neon-purple hover:shadow-neon-cyan transition-all duration-300 hover:-translate-y-0.5 active:scale-95;
+    }
+
+    .btn-cyber-outline {
+        @apply px-6 py-3 rounded-xl font-semibold text-cyber-neon-cyan bg-transparent;
+        @apply border border-cyber-neon-cyan/50 backdrop-blur-sm;
+        @apply hover:bg-cyber-neon-cyan/10 hover:border-cyber-neon-cyan;
+        @apply transition-all duration-300 hover:-translate-y-0.5 active:scale-95;
+    }
+
+    .input-cyber {
+        @apply px-4 py-3 rounded-xl border border-white/10 bg-cyber-slate/50 backdrop-blur-sm text-white;
+        @apply focus:outline-none focus:border-cyber-neon-purple focus:ring-1 focus:ring-cyber-neon-purple;
+        @apply transition-all duration-200 placeholder:text-gray-500;
+    }
+
+    .metric-card {
+        @apply glass-card rounded-2xl p-6 transition-all duration-300;
+        @apply hover:border-cyber-neon-purple/50 hover:shadow-neon-purple cursor-pointer;
+    }
+
+    .badge-success {
+        @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+        @apply bg-emerald-500/10 text-emerald-400 border border-emerald-500/20;
+    }
+
+    .badge-warning {
+        @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+        @apply bg-amber-500/10 text-amber-400 border border-amber-500/20;
+    }
+
+    .badge-danger {
+        @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+        @apply bg-red-500/10 text-red-400 border border-red-500/20;
+    }
+
+    .badge-info {
+        @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+        @apply bg-cyan-500/10 text-cyan-400 border border-cyan-500/20;
+    }
+}
+
+/* Utility Classes */
+@layer utilities {
+    .scrollbar-cyber::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    .scrollbar-cyber::-webkit-scrollbar-track {
+        @apply bg-cyber-black;
+    }
+
+    .scrollbar-cyber::-webkit-scrollbar-thumb {
+        @apply bg-cyber-slate rounded-full hover:bg-cyber-gray;
+    }
+}
+
+/* Custom Markdown Table Styles */
+.prose table {
+    @apply w-full text-left border-collapse my-4 rounded-lg overflow-hidden;
+}
+
+.prose thead {
+    @apply bg-white/5 border-b border-white/10 text-white;
+}
+
+.prose th {
+    @apply px-4 py-3 font-semibold text-sm uppercase tracking-wider text-cyber-neon-cyan;
+}
+
+.prose tbody tr {
+    @apply border-b border-white/5 hover:bg-white/5 transition-colors;
+}
+
+.prose td {
+    @apply px-4 py-3 text-sm text-gray-300;
+}
