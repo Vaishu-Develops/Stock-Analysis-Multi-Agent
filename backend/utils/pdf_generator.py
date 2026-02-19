@@ -27,8 +27,17 @@ class PDFReport(FPDF):
 
     def chapter_body(self, body):
         self.set_font('helvetica', '', 11)
-        # Basic sanitization of unicode for standard fonts
+        # Comprehensive unicode sanitization for standard fonts
         body = body.replace('₹', 'Rs. ').replace('â‚¹', 'Rs. ')
+        # Replace curly quotes with straight quotes
+        body = body.replace(''', "'").replace(''', "'")
+        body = body.replace('"', '"').replace('"', '"')
+        # Replace em/en dashes
+        body = body.replace('—', '-').replace('–', '-')
+        # Replace bullet points
+        body = body.replace('•', '*').replace('…', '...')
+        # Remove other problematic unicode characters
+        body = body.encode('ascii', 'ignore').decode('ascii')
         self.multi_cell(0, 6, body)
         self.ln()
     
