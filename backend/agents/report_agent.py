@@ -5,7 +5,7 @@ class ReportWriterAgent:
     def __init__(self):
         self.api_key = os.environ.get("OPENROUTER_API_KEY", os.environ.get("OPENAI_API_KEY"))
         self.base_url = os.environ.get("OPENAI_BASE_URL", "https://openrouter.ai/api/v1")
-        self.model = os.environ.get("MODEL_NAME", "google/gemini-2.0-flash-exp:free")
+        self.model = os.environ.get("MODEL_NAME", "openrouter/free")
         
         self.system_message = """You are a Senior Wall Street Equity Analyst. 
         Your job is to write a professional investment report based on the provided structured data.
@@ -63,11 +63,14 @@ class ReportWriterAgent:
         
         import time
         
-        # List of models to try in order
+        # List of models to try in order (with safety fallbacks)
         fallback_models = [
-            "meta-llama/llama-3.2-3b-instruct:free",
-            "mistralai/mistral-7b-instruct:free",
-            "google/gemini-flash-1.5:free"
+            "google/gemini-2.0-flash-exp:free",
+            "deepseek/deepseek-v3:free",
+            "deepseek/deepseek-r1-0528:free",
+            "openai/gpt-oss-120b:free",
+            "google/gemma-2-27b-it:free",
+            "openrouter/free"  # Final fallback - always works
         ]
         
         # Ensure self.model is first, and avoid duplicates
@@ -95,6 +98,10 @@ class ReportWriterAgent:
                     if response.status_code == 200:
                         result = response.json()
                         content = result['choices'][0]['message']['content']
+                        
+                        # Log which model was actually used (especially for openrouter/free)
+                        actual_model = result.get('model', model)
+                        print(f"✅ SUCCESS: Report generated using model: {actual_model}")
                         
                         # Clean up potential markdown code blocks
                         if "```json" in content:
